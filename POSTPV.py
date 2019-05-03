@@ -61,6 +61,10 @@ class MyFrame(wx.Frame):
         self.__do_layout()
         self.__set_properties()
         self.__set_event()
+        #Crea el evento tiempo usando wx.Timer como accion del evento EVT_TIMER
+        self.Bind(wx.EVT_TIMER, self.Hora)
+        self.timer = wx.Timer(self, -1)
+        self.timer.Start(1000)
 
      
 
@@ -138,7 +142,6 @@ class MyFrame(wx.Frame):
     def __set_event(self):
         self.Bind(wx.EVT_BUTTON, self.OnButton1, self.button_1)
         self.Bind(wx.EVT_BUTTON, self.OnButton2, self.button_2)
-        self.Bind(wx.adv.EVT_TIME_CHANGED, self.Hora)
         
     # Función al precionar el button_1
     def OnButton1(self, event):
@@ -148,7 +151,7 @@ class MyFrame(wx.Frame):
         event.Skip()
 
     #Hora del sistema
-    def Hora(self):
+    def Hora(self,event):
         localtime = str(time.strftime('%H:%M:%S'))
         self.st_hora.Label=str(localtime)
 
